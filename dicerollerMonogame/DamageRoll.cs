@@ -28,5 +28,38 @@ namespace dicerollerMonogame
         {
             miscSources.Add((count, sides, type));
         }
+
+        public int RollDamage()
+        {
+            Random rnd = new Random();
+            damageByType.Clear();
+            int total = 0;
+
+            // Base damage
+            int baseTotal = 0;
+            for (int i = 0; i < diceCount; i++)
+                baseTotal += rnd.Next(1, diceSides + 1);
+            baseTotal += modifier;
+            damageByType[damageType] = baseTotal;
+            total += baseTotal;
+
+            // Misc
+            foreach (var (count, sides, type) in miscSources)
+            {
+                int miscTotal = 0;
+                for (int i = 0; i < count; i++)
+                    miscTotal += rnd.Next(1, sides + 1);
+
+                if (damageByType.ContainsKey(type))
+                    damageByType[type] += miscTotal;
+                else
+                    damageByType[type] = miscTotal;
+
+                total += miscTotal;
+            }
+
+            lastTotalDamage = total;
+            return total;
+        }
     }
 }
