@@ -61,5 +61,9 @@ namespace dicerollerMonogame
             lastTotalDamage = total;
             return total;
         }
+
+        public int GetTotalDamage() => lastTotalDamage;
+
+        public Dictionary<string, int> GetDamageBreakdown() => damageByType;
     }
 }
