@@ -8,6 +8,10 @@ namespace dicerollerMonogame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        SpriteFont font;
+
+        DamageRoll roll;
+        string summary = "Press SPACE to roll damage. \nPress R to reset.";
 
         public Game1()
         {
@@ -21,6 +25,14 @@ namespace dicerollerMonogame
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            SetupRoll();
+        }
+
+        private void SetupRoll()
+        {
+            roll = new DamageRoll(2, 6, 3, "slashing");
+            roll.AddMiscDamage(2, 8, "radiant");
+            roll.AddMiscDamage(1, 4, "thunder");
         }
 
         protected override void LoadContent()
