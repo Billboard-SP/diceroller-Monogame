@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Text;
 
 namespace dicerollerMonogame
 {
@@ -38,18 +40,37 @@ namespace dicerollerMonogame
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("DefaultFont");
 
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            KeyboardState state = Keyboard.GetState();
+
+            if (state.IsKeyDown(Keys.Space))
+            {
+                roll.RollDamage();
+                summary = BuildSummary(roll);
+            }
 
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+        }
+
+        private string BuildSummary(DamageRoll roll)
+        {
+            Dictionary<string, int> breakdown = roll.GetDamageBreakdown();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Damage Breakdown:");
+            foreach (var entry in breakdown)
+            {
+                sb.AppendLine($"- {entry.Key}: {entry.Value}");
+            }
+            sb.AppendLine($"Total Damage: {roll.GetTotalDamage()}");
+            return sb.ToString();
         }
 
         protected override void Draw(GameTime gameTime)
