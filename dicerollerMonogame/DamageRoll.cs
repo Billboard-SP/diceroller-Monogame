@@ -14,6 +14,14 @@ namespace dicerollerMonogame
         private Dictionary<string, int> damageByType;
         private int lastTotalDamage;
 
-
+        public DamageRoll(int diceCount, int diceSides, int modifier, string damageType)
+        {
+            this.diceCount = diceCount;
+            this.diceSides = diceSides;
+            this.modifier = modifier;
+            this.damageType = damageType;
+            miscSources = new List<(int, int, string)>();
+            damageByType = new Dictionary<string, int>();
+        }
     }
 }
