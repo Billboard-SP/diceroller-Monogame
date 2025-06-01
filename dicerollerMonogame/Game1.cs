@@ -9,7 +9,7 @@ namespace dicerollerMonogame
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        SpriteBatch spriteBatch;
         SpriteFont font;
 
         DamageRoll roll;
@@ -39,7 +39,7 @@ namespace dicerollerMonogame
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("DefaultFont");
 
             // TODO: use this.Content to load your game content here
@@ -75,7 +75,10 @@ namespace dicerollerMonogame
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, summary, new Vector2(20, 20), Color.White);
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
