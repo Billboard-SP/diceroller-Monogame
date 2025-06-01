@@ -23,5 +23,10 @@ namespace dicerollerMonogame
             miscSources = new List<(int, int, string)>();
             damageByType = new Dictionary<string, int>();
         }
+
+        public void AddMiscDamage(int count, int sides, string type)
+        {
+            miscSources.Add((count, sides, type));
+        }
     }
 }
